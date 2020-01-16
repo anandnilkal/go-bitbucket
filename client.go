@@ -131,6 +131,7 @@ func injectClient(a *auth) *Client {
 		PullRequests:       &PullRequests{c: c},
 		Repository:         &Repository{c: c},
 		Commits:            &Commits{c: c},
+		Refs:               &Ref{c: c},
 		Diff:               &Diff{c: c},
 		BranchRestrictions: &BranchRestrictions{c: c},
 		Webhooks:           &Webhooks{c: c},
@@ -326,6 +327,9 @@ func (c *Client) doRawRequest(req *http.Request, emptyResponse bool) ([]byte, er
 	}
 
 	if (resp.StatusCode != http.StatusOK) && (resp.StatusCode != http.StatusCreated) {
+		if (resp.StatusCode == http.StatusNoContent) {
+			return nil, nil
+		}
 		return nil, fmt.Errorf(resp.Status)
 	}
 
