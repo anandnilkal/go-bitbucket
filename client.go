@@ -131,6 +131,7 @@ func injectClient(a *auth) *Client {
 		PullRequests:       &PullRequests{c: c},
 		Repository:         &Repository{c: c},
 		Commits:            &Commits{c: c},
+		Refs:               &Ref{c: c},
 		Diff:               &Diff{c: c},
 		BranchRestrictions: &BranchRestrictions{c: c},
 		Webhooks:           &Webhooks{c: c},
